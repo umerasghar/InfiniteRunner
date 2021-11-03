@@ -10,8 +10,6 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        if (instance != null)
-            DontDestroyOnLoad(instance);
     }
     // Start is called before the first frame update
     void Start()
