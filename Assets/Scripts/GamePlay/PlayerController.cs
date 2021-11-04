@@ -8,12 +8,10 @@ public class PlayerController : MonoBehaviour
     public Player player;
     private Rigidbody2D rb2D;
     private Animator animator;
-    public float speed = 50f;
     public float jumpForce = 50;
     private bool playergrounded = true;
     bool up;
     float playerFall = 2.5f;
-    Rigidbody2D projectileRB;
     // Start is called before the first frame update
     void Start()
     {
@@ -70,6 +68,28 @@ public class PlayerController : MonoBehaviour
             playergrounded = true;
               player.CurrentState = (int)AnimationStates.run;
             ChangeState();
+        }
+        if (collision.gameObject.tag == "Obstacle")
+        {
+            GameManager.GameStart = false;
+            GameManager.instance.gameComponents.gameStartCounter.gameObject.SetActive(true);
+            GameManager.instance.gameComponents.gameStartCounter.text = "Game Over!";
+            player.CurrentState = (int)AnimationStates.death;
+            if (GameManager.scoreCount > GameManager.currentHighScore)
+            {
+                PlayerPrefs.SetInt("HighScore",GameManager.scoreCount);
+            }
+            GameManager.instance.gameComponents.replay.gameObject.SetActive(true);
+            ChangeState();
+            
+            
+        }
+        if (collision.gameObject.tag == "Gem")
+        {
+            GameManager.gemCount++;
+            GameManager.instance.gameComponents.gemCount.text = GameManager.gemCount + "";
+            Destroy(collision.gameObject);
+
         }
     }
 }

@@ -10,6 +10,7 @@ public class GameComponents
     public Text gameStartCounter;
     public Text scoreCount;
     public Text gemCount;
-    [Header("Obstacles")]
-    public Transform obstaclePrefab;
+    public Text highScore;
+    public Button replay;
+
 }
